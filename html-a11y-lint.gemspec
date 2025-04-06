@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/html/a11y/lint/version"
+require_relative "lib/html-a11y-lint"
 
 Gem::Specification.new do |spec|
   spec.name = "html-a11y-lint"
-  spec.version = Html::A11y::Lint::VERSION
+  spec.version = HtmlA11yLint::VERSION
   spec.authors = ["Hitoshi-Noborikawa"]
   spec.email = ["dengchuanrenzhi@gmail.com"]
 
