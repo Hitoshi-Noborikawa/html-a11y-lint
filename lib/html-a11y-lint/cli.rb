@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# CLI entry point for the html-a11y-lint command.
 module HtmlA11yLint
+  # CLI entry point for the html-a11y-lint command.
   class CLI
     def self.start(args)
       if args.empty?
