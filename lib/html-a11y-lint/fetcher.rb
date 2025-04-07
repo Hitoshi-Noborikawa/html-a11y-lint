@@ -3,6 +3,7 @@
 require "open-uri"
 
 module HtmlA11yLint
+  # Fetches HTML from a URL or local file
   class Fetcher
     class FetchError < StandardError; end
 
@@ -39,9 +40,7 @@ module HtmlA11yLint
     end
 
     def fetch_from_file(path)
-      unless File.exist?(path)
-        raise FetchError, "File not found: #{path}"
-      end
+      raise FetchError, "File not found: #{path}" unless File.exist?(path)
 
       File.read(path)
     end
