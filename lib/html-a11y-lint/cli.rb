@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "fetcher"
+
 module HtmlA11yLint
   # CLI entry point for the html-a11y-lint command.
   class CLI
@@ -10,7 +12,10 @@ module HtmlA11yLint
       end
 
       input = args[0]
-      puts "Received input: #{input}"
+      fetcher = Fetcher.new(input)
+      html = fetcher.fetch
+
+      puts html
     end
   end
 end
