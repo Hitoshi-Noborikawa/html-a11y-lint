@@ -19,6 +19,7 @@ module HtmlA11yLint
       check_img_alt(doc)
       check_a_href(doc)
       check_button_label(doc)
+      check_duplicate_ids(doc)
     end
 
     private
@@ -46,6 +47,20 @@ module HtmlA11yLint
         text = button.text.strip
         if text.empty?
           add_error("<button> tag without visible label at line #{button.line}")
+        end
+      end
+    end
+
+    def check_duplicate_ids(doc)
+      id_map = Hash.new { |h, k| h[k] = [] }
+      doc.css("*[id]").each do |node|
+        id_map[node["id"]] << node
+      end
+      id_map.each do |id, nodes|
+        if nodes.size > 1
+          nodes.each do |node|
+            add_error("Duplicate id '#{id}' found at line #{node.line}")
+          end
         end
       end
     end
