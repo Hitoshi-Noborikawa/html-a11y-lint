@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "fetcher"
+require_relative "checker"
 
 module HtmlA11yLint
   # CLI entry point for the html-a11y-lint command.
@@ -14,8 +15,11 @@ module HtmlA11yLint
       input = args[0]
       fetcher = Fetcher.new(input)
       html = fetcher.fetch
+      checker = Checker.new(html)
+      checker.run
 
-      puts html
+      puts "Found #{checker.errors.size} issues."
+      puts checker.errors.join("\n")
     end
   end
 end
