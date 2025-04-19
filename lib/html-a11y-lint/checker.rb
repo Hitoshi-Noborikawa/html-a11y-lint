@@ -17,6 +17,7 @@ module HtmlA11yLint
       end
 
       check_img_alt(doc)
+      check_a_href(doc)
     end
 
     private
@@ -26,6 +27,15 @@ module HtmlA11yLint
         alt = img["alt"]
         if alt.nil? || alt.strip.empty?
           add_error("<img> tag without alt attribute at line #{img.line}")
+        end
+      end
+    end
+
+    def check_a_href(doc)
+      doc.css("a").each do |a|
+        href = a["href"]
+        if href.nil? || href.strip.empty?
+          add_error("<a> tag without href attribute at line #{a.line}")
         end
       end
     end
