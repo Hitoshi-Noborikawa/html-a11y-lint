@@ -22,9 +22,6 @@ module HtmlA11yLint
 
       reporter = Reporter.new(checker.errors)
       reporter.report
-
-      puts "Found #{checker.errors.size} issues."
-      puts checker.errors.join("\n")
     end
   end
 end
