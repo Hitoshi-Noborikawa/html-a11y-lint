@@ -18,6 +18,7 @@ module HtmlA11yLint
 
       check_img_alt(doc)
       check_a_href(doc)
+      check_button_label(doc)
     end
 
     private
@@ -36,6 +37,15 @@ module HtmlA11yLint
         href = a["href"]
         if href.nil? || href.strip.empty?
           add_error("<a> tag without href attribute at line #{a.line}")
+        end
+      end
+    end
+
+    def check_button_label(doc)
+      doc.css("button").each do |button|
+        text = button.text.strip
+        if text.empty?
+          add_error("<button> tag without visible label at line #{button.line}")
         end
       end
     end
