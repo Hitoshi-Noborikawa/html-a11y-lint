@@ -2,6 +2,7 @@
 
 require_relative "fetcher"
 require_relative "checker"
+require_relative "reporter"
 
 module HtmlA11yLint
   # CLI entry point for the html-a11y-lint command.
@@ -15,8 +16,12 @@ module HtmlA11yLint
       input = args[0]
       fetcher = Fetcher.new(input)
       html = fetcher.fetch
+
       checker = Checker.new(html)
       checker.run
+
+      reporter = Reporter.new(checker.errors)
+      reporter.report
 
       puts "Found #{checker.errors.size} issues."
       puts checker.errors.join("\n")
