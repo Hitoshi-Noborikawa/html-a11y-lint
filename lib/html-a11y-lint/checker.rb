@@ -20,6 +20,7 @@ module HtmlA11yLint
       check_a_href(doc)
       check_button_label(doc)
       check_duplicate_ids(doc)
+      check_html_lang(doc)
     end
 
     private
@@ -62,6 +63,16 @@ module HtmlA11yLint
             add_error("Duplicate id '#{id}' found at line #{node.line}")
           end
         end
+      end
+    end
+
+    def check_html_lang(doc)
+      html_tag = doc.at("html")
+      return unless html_tag
+
+      lang = html_tag["lang"]
+      if lang.nil? || lang.strip.empty?
+        add_error("<html> tag is missing a lang attribute (line #{html_tag.line})")
       end
     end
 
