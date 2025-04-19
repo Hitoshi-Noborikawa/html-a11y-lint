@@ -21,6 +21,7 @@ module HtmlA11yLint
       check_button_label(doc)
       check_duplicate_ids(doc)
       check_html_lang(doc)
+      check_form_label(doc)
     end
 
     private
@@ -73,6 +74,22 @@ module HtmlA11yLint
       lang = html_tag["lang"]
       if lang.nil? || lang.strip.empty?
         add_error("<html> tag is missing a lang attribute (line #{html_tag.line})")
+      end
+    end
+
+    def check_form_label(doc)
+      form_controls = doc.css("input, select, textarea")
+      label_for_ids = doc.css("label[for]").map { |label| label["for"] }
+      form_controls.each do |el|
+        next if el["type"] == "hidden"
+
+        id = el["id"]
+        has_for_label = id && label_for_ids.include?(id)
+        has_wrapping_label = el.ancestors.any? { |ancestor| ancestor.name == "label" }
+
+        unless has_for_label || has_wrapping_label
+          add_error("<#{el.name}> tag without associated <label> at line #{el.line}")
+        end
       end
     end
 
