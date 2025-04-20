@@ -5,6 +5,10 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in html-a11y-lint.gemspec
 gemspec
 
-gem "rake", "~> 13.0"
+gem "nokogiri"
+gem "rake"
+gem "rubocop"
 
-gem "rubocop", "~> 1.21"
+group :test do
+  gem "rspec"
+end
