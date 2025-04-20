@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "lib/html-a11y-lint"
+require_relative "lib/html-a11y-lint/version"
 
 Gem::Specification.new do |spec|
   spec.name = "html-a11y-lint"
